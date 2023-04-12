@@ -24,7 +24,11 @@ CREATE TABLE userInfor (
 CREATE TABLE userAccount (
   user_id varchar(11) primary key not null,
   user_account VARCHAR(127),
+<<<<<<< HEAD
   user_password char(97)
+=======
+  user_password char(100)
+>>>>>>> 28d2eb9c61d3d8f51d3e930809c0976fa8e51c62
   constraint fk_user_id_userAccount foreign key (user_id) references dbo.users(user_id),
 );
 

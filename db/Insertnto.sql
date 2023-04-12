@@ -24,6 +24,7 @@ insert into dbo.userInfor
 )
 values
 (   'UID00000002'        -- user_id - varchar(11)
+<<<<<<< HEAD
   , '2002-07-08' -- user_dob - date
   , 'fpt'        -- study_at - varchar(127)
   , 'fpt'        -- work_at - varchar(127)
@@ -42,3 +43,11 @@ values
   , '$argon2i$v=19$m=65536,t=28,p=1$DpEvNSPwaUDDJUDfBwXENg$W1TENxDzzXutPFxY8pZi487lBT7YErXuG+eYqD67F20' -- user_password - varchar(100)
     )
 	
+=======
+  , getdate() -- user_dob - date
+  , ''        -- study_at - varchar(127)
+  , ''        -- work_at - varchar(127)
+  , ''        -- favorites - varchar(255)
+  , getdate() -- created_at - datetime
+    )
+>>>>>>> 28d2eb9c61d3d8f51d3e930809c0976fa8e51c62
