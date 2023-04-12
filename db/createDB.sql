@@ -1,7 +1,9 @@
-﻿--CREATE DATABASE chat1;
+﻿--CREATE DATABASE chat12346;
+--done
 --drop database chat
 CREATE TABLE users (
-  user_id uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
+ID INT IDENTITY(1,1) NOT NULL,
+  user_id AS 'UID' + RIGHT('00000000' + CAST(ID AS VARCHAR(8)), 8) persisted PRIMARY KEY,
   user_name NVARCHAR(127),
   user_mail VARCHAR(255),
   avatar_url VARCHAR(1027),
@@ -10,67 +12,73 @@ CREATE TABLE users (
 );
 
 CREATE TABLE userInfor (
-  user_id uniqueidentifier PRIMARY KEY REFERENCES dbo.users(user_id),
+  user_id varchar(11) primary key not null,
   user_dob DATE,
   study_at VARCHAR(127),
   work_at VARCHAR(127),
   favorites VARCHAR(255),
-  created_at DATETIME
+  created_at datetime
+  constraint fk_user_id_userInfor foreign key (user_id) references dbo.users(user_id),
 );
 
 CREATE TABLE userAccount (
-  user_id uniqueidentifier PRIMARY KEY REFERENCES users(user_id),
+  user_id varchar(11) primary key not null,
   user_account VARCHAR(127),
-  user_password VARCHAR(64)
+  user_password char(100)
+  constraint fk_user_id_userAccount foreign key (user_id) references dbo.users(user_id),
 );
 
 --0 user_id1 ->  user_id2
 --1 user_id1 <-  user_id2
 --2 user_id1 <-> user_id2
 CREATE TABLE userRelation (
-  user_id1 uniqueidentifier NOT NULL,
-  user_id2 uniqueidentifier NOT NULL,
+  user_id1 varchar(11),
+  user_id2 varchar(11),
   status TINYINT CHECK (status IN (0,1,2)),
   PRIMARY KEY (user_id1, user_id2),
-  FOREIGN KEY (user_id1) REFERENCES users(user_id),
-  FOREIGN KEY (user_id2) REFERENCES users(user_id),
-  CHECK (user_id1 < user_id2)
+  CHECK (user_id1 < user_id2),
+  constraint fk_user_id1_userRelation foreign key (user_id1) references dbo.users(user_id),
+  constraint fk_user_id2_userRelation foreign key (user_id2) references dbo.users(user_id),
 );
 
 CREATE TABLE userBoxchat (
-  user_id uniqueidentifier REFERENCES users(user_id) primary key,
+  user_id varchar(11),
   chat_text varbinary(max),
   status BIT,
   -- status 0: chat_text là của user
   -- status 1: chat_text là của chatbox
+  constraint fk_user_id_userBoxchat foreign key (user_id) references dbo.users(user_id),
 );
 
 
 CREATE TABLE post (
-	user_id uniqueidentifier NOT NULL,
-	post_id uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
+	user_id varchar(11),
+	ID_POST INT IDENTITY(1,1) NOT NULL,
+	post_id AS 'POS' + RIGHT('00000000' + CAST(ID_POST AS VARCHAR(8)), 8) persisted PRIMARY KEY,
 	post_content VARCHAR(max),
 	post_status INT DEFAULT 1,
 	post_date DATE DEFAULT GETDATE(),
-	constraint fk_post_user_id foreign key (user_id) references dbo.users(user_id),
+	constraint fk_user_id_post  foreign key (user_id) references dbo.users(user_id),
 );
 CREATE TABLE comment (
-  user_id uniqueidentifier NOT NULL,
-  post_id uniqueidentifier NOT NULL,
-  comment_id uniqueidentifier DEFAULT NEWID() primary key,
+  user_id varchar(11),
+  post_id varchar(11),
+  ID_COMMENT INT IDENTITY(1,1) NOT NULL,
+  comment_id AS 'COM' + RIGHT('00000000' + CAST(ID_COMMENT AS VARCHAR(8)), 8) persisted primary key,
   comment_time DATETIME DEFAULT GETDATE(),
   voted_count INT DEFAULT 0,
   constraint fk_comment_user_id foreign key (user_id) references dbo.users(user_id),
   constraint fk_comment_post_id foreign key (post_id) references dbo.post(post_id),
 );
+
 CREATE TABLE vote (
-  user_id uniqueidentifier NOT NULL,
-  comment_id uniqueidentifier NOT NULL,
+  user_id varchar(11),
+  comment_id varchar(11),
   vote_status BIT NOT NULL,
 -- 0 vote down, 1 vote up
   PRIMARY KEY (user_id, comment_id),
   constraint fk_vote_user_id foreign key (user_id) references dbo.users(user_id),
-   constraint fk_vote_comment_id foreign key (comment_id) references dbo.comment(comment_id),
+  constraint fk_vote_vote_id foreign key (comment_id) references dbo.comment(comment_id),
 );
 
 
