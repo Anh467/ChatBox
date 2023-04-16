@@ -85,17 +85,17 @@
                 request.setAttribute("login", "none");
             } else {
                 request.setAttribute("notlogin", "none");
-                request.setAttribute("login", "block");
+                request.setAttribute("login", "flex");
             }
         %>
         <div class="container header">
             <nav>
                 <div class="logo">
-                    <a href="#"><span>IRCN  V</a>
+                    <a href="index.jsp"><span>IRCN  V</a>
                 </div>
                 <ul>
                     <li>
-                        <a href="#"><span>Home</span></a>
+                        <a href="index.jsp"><span>Home</span></a>
                     </li>
                     <li>
                         <a href="#"><span>About</span></a>
@@ -108,7 +108,7 @@
                     <a href="login.jsp" class="login"><span>Log in</span></a>
                     <a href="#" class="btn">Register</a>
                 </div>
-                <div class="buttons" style="display: ${login}; display: flex">
+                <div class="buttons" style="display: ${login};>
                     <i class="fa-solid fa-user fa-3x"></i>
                     <form style="margin-left: 10px" action="CheckLogin" method="post">
                         <input class="btn" type="submit" value="Log out">

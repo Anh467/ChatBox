@@ -51,4 +51,15 @@ public class API {
         }
         return false;
     }
+    public void updateChattext(String UID, String user, String chat){
+        try {
+            PreparedStatement ps= cnn.prepareStatement(query.insertChat);
+            ps.setString(1, UID);
+            ps.setString(2,"/&"+user+"&/" + "/*"+chat+"*/");
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.err.println("model.API.updateChattext");
+            e.printStackTrace();
+        }
+    }
 }

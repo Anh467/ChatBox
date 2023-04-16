@@ -52,7 +52,7 @@
                 <p>I'm A Web Developer ,<br />You Can Find Me On GitHub.</p>
             </div>
             <div class="link">
-                <a href="#" class="hire">Chat Bot AI</a>
+                <a href="chat/ircnv.jsp" class="hire">Chat Bot AI</a>
                 <a href="#" class="hire">Community</a>
             </div>
         </div>
