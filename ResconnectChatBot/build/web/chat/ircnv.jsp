@@ -1,15 +1,20 @@
+<%@page import="model.BoxChatInfor"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
         <title>Chatbot</title>
         <link rel="stylesheet" type="text/css" href="style.css" />
-         <link
+        <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
             integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
             />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+
         <style>
             @import url("https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500;600;700&display=swap");
             * {
@@ -306,14 +311,17 @@
     </head>
     <body>
         <%
-            if ((session.getAttribute("id") == null) || (((String) session.getAttribute("id")).equals(""))) {
+            String uid = (String) session.getAttribute("id");
+            if ((uid == null) || (uid.equals(""))) {
                 request.setAttribute("notlogin", "block");
                 request.setAttribute("login", "none");
             } else {
                 request.setAttribute("notlogin", "none");
                 request.setAttribute("login", "flex");
             }
+            request.setAttribute("uid", uid);
         %>
+        <span id="uid" vaule="${uid}"> ${uid}</span>
         <div class="container header">
             <nav>
                 <div class="logo">
@@ -343,16 +351,29 @@
             </nav>
 
         </div>
-                    
-                    
-                    
-                    
-        <div id="chat-window">
-            <div class="main-title">CHAT BOT IRCN V WITH CHAT-GPT</div>
-            <div id="chat-messages"></div>
-            <form action="Save" id="cal" style="display: none">
-                
-            </form>
+
+
+        <c:set var="id_user" value="${uid}"></c:set>            
+        <jsp:useBean id="api" class="model.API"></jsp:useBean>
+            <div id="chat-window">
+
+                <div class="main-title">CHAT BOT IRCN V WITH CHAT-GPT</div>
+                <div id="chat-messages">
+                <c:if test="${uid!=null}">
+                    <c:forEach var="ele" items="${api.getChatText(uid)}">
+                        <div>
+                            <div class="message user-message">
+                                <img src="icons/user.png" alt="user icon">
+                                <span>${ele.getUser()}</span>
+                            </div>
+                            <div class="message bot-message">
+                                <img src="icons/chatbot.png" alt="bot icon">
+                                <span>${ele.getChat()}</span>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </c:if>
+            </div>
             <form id="chat-form">
                 <input
                     type="text"
@@ -363,12 +384,31 @@
                     />
                 <button type="submit">Send</button>
             </form>
+
+            <button id="clear">Clear Boxchat</button>
+
         </div>
-                    
-                    
-                    
-                    
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+        <script>
+            const clearboxchat = document.getElementById("clear");
+            const message = document.getElementById("chat-messages");
+            clearboxchat.addEventListener("click", function () {
+                $.ajax({
+                    url: '/ResconnectChatBot/Clear',
+                    type: 'get',
+                    data: {id: '${uid}'
+                    },
+                    success: function (result) {
+                        message.innerHTML= "";
+                    },
+                    error: function (xhr) {
+                        alert("st wrong");
+                    }
+                });
+            });
+        </script>
+
+
+
         <script src="app.js"></script>
         <footer>
             <div class="content">

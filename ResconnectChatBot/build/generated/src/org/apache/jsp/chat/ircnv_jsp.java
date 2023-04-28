@@ -3,6 +3,7 @@ package org.apache.jsp.chat;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import model.BoxChatInfor;
 
 public final class ircnv_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
@@ -11,10 +12,26 @@ public final class ircnv_jsp extends org.apache.jasper.runtime.HttpJspBase
 
   private static java.util.List<String> _jspx_dependants;
 
+  private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_c_forEach_var_items;
+  private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_c_set_var_value_nobody;
+  private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_c_if_test;
+
   private org.glassfish.jsp.api.ResourceInjector _jspx_resourceInjector;
 
   public java.util.List<String> getDependants() {
     return _jspx_dependants;
+  }
+
+  public void _jspInit() {
+    _jspx_tagPool_c_forEach_var_items = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
+    _jspx_tagPool_c_set_var_value_nobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
+    _jspx_tagPool_c_if_test = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
+  }
+
+  public void _jspDestroy() {
+    _jspx_tagPool_c_forEach_var_items.release();
+    _jspx_tagPool_c_set_var_value_nobody.release();
+    _jspx_tagPool_c_if_test.release();
   }
 
   public void _jspService(HttpServletRequest request, HttpServletResponse response)
@@ -41,18 +58,40 @@ public final class ircnv_jsp extends org.apache.jasper.runtime.HttpJspBase
       _jspx_out = out;
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
+      out.write("\n");
+      out.write("\n");
       out.write("<!DOCTYPE html>\n");
       out.write("<html>\n");
       out.write("    <head>\n");
       out.write("        <title>Chatbot</title>\n");
       out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n");
-      out.write("         <link\n");
+      out.write("        <link\n");
       out.write("            rel=\"stylesheet\"\n");
       out.write("            href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css\"\n");
       out.write("            integrity=\"sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==\"\n");
       out.write("            crossorigin=\"anonymous\"\n");
       out.write("            referrerpolicy=\"no-referrer\"\n");
       out.write("            />\n");
+      out.write("        <script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js\"></script>\n");
+      out.write("        <script src=\"https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js\"></script>\n");
+      out.write("        <script>\n");
+      out.write("            function clearboxchat() {\n");
+      out.write("                \n");
+      out.write("                $.ajax({\n");
+      out.write("                    url: '/ResconnectChatBot/Clear',\n");
+      out.write("                    type: 'get',\n");
+      out.write("                    data: {\n");
+      out.write("                        id: uid\n");
+      out.write("                    },\n");
+      out.write("                    success: function (result) {\n");
+      out.write("                        messages.innerHTML = \"\";\n");
+      out.write("                    },\n");
+      out.write("                    error: function (xhr) {\n");
+      out.write("                        alert(\"st wrong\");\n");
+      out.write("                    }\n");
+      out.write("                });\n");
+      out.write("            };\n");
+      out.write("        </script>\n");
       out.write("        <style>\n");
       out.write("            @import url(\"https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500;600;700&display=swap\");\n");
       out.write("            * {\n");
@@ -350,15 +389,20 @@ public final class ircnv_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    <body>\n");
       out.write("        ");
 
-            if ((session.getAttribute("id") == null) || (((String) session.getAttribute("id")).equals(""))) {
+            String uid = (String) session.getAttribute("id");
+            if ((uid == null) || (uid.equals(""))) {
                 request.setAttribute("notlogin", "block");
                 request.setAttribute("login", "none");
             } else {
                 request.setAttribute("notlogin", "none");
-                request.setAttribute("login", "block");
+                request.setAttribute("login", "flex");
             }
+            request.setAttribute("uid", uid);
         
       out.write("\n");
+      out.write("        <span style=\"display: none\" id=\"uid\"> ");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${uid}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("</span>\n");
       out.write("        <div class=\"container header\">\n");
       out.write("            <nav>\n");
       out.write("                <div class=\"logo\">\n");
@@ -383,7 +427,7 @@ public final class ircnv_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                </div>\n");
       out.write("                <div class=\"buttons\" style=\"display: ");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${login}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("; display: flex\">\n");
+      out.write("\">\n");
       out.write("                    <i class=\"fa-solid fa-user fa-3x\"></i>\n");
       out.write("                    <form style=\"margin-left: 10px\" action=\"../CheckLogin\" method=\"post\">\n");
       out.write("                        <input class=\"btn\" type=\"submit\" value=\"Log out\">\n");
@@ -392,16 +436,31 @@ public final class ircnv_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            </nav>\n");
       out.write("\n");
       out.write("        </div>\n");
-      out.write("                    \n");
-      out.write("                    \n");
-      out.write("                    \n");
-      out.write("                    \n");
-      out.write("        <div id=\"chat-window\">\n");
-      out.write("            <div class=\"main-title\">CHAT BOT IRCN V WITH CHAT-GPT</div>\n");
-      out.write("            <div id=\"chat-messages\"></div>\n");
-      out.write("            <form action=\"Save\" id=\"cal\" style=\"display: none\">\n");
-      out.write("                \n");
-      out.write("            </form>\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("        ");
+      if (_jspx_meth_c_set_0(_jspx_page_context))
+        return;
+      out.write("            \n");
+      out.write("        ");
+      model.API api = null;
+      synchronized (_jspx_page_context) {
+        api = (model.API) _jspx_page_context.getAttribute("api", PageContext.PAGE_SCOPE);
+        if (api == null){
+          api = new model.API();
+          _jspx_page_context.setAttribute("api", api, PageContext.PAGE_SCOPE);
+        }
+      }
+      out.write("\n");
+      out.write("            <div id=\"chat-window\">\n");
+      out.write("\n");
+      out.write("                <div class=\"main-title\">CHAT BOT IRCN V WITH CHAT-GPT</div>\n");
+      out.write("                <div id=\"chat-messages\">\n");
+      out.write("                ");
+      if (_jspx_meth_c_if_0(_jspx_page_context))
+        return;
+      out.write("\n");
+      out.write("            </div>\n");
       out.write("            <form id=\"chat-form\">\n");
       out.write("                <input\n");
       out.write("                    type=\"text\"\n");
@@ -412,12 +471,15 @@ public final class ircnv_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    />\n");
       out.write("                <button type=\"submit\">Send</button>\n");
       out.write("            </form>\n");
+      out.write("\n");
+      out.write("            <button onclick=\"clearboxchat()\">Clear Boxchat</button>\n");
+      out.write("\n");
       out.write("        </div>\n");
-      out.write("                    \n");
-      out.write("                    \n");
-      out.write("                    \n");
-      out.write("                    \n");
-      out.write("        <script src=\"https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js\"></script>\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("        \n");
       out.write("        <script src=\"app.js\"></script>\n");
       out.write("        <footer>\n");
       out.write("            <div class=\"content\">\n");
@@ -491,5 +553,105 @@ public final class ircnv_jsp extends org.apache.jasper.runtime.HttpJspBase
     } finally {
       _jspxFactory.releasePageContext(_jspx_page_context);
     }
+  }
+
+  private boolean _jspx_meth_c_set_0(PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:set
+    org.apache.taglibs.standard.tag.rt.core.SetTag _jspx_th_c_set_0 = (org.apache.taglibs.standard.tag.rt.core.SetTag) _jspx_tagPool_c_set_var_value_nobody.get(org.apache.taglibs.standard.tag.rt.core.SetTag.class);
+    _jspx_th_c_set_0.setPageContext(_jspx_page_context);
+    _jspx_th_c_set_0.setParent(null);
+    _jspx_th_c_set_0.setVar("id_user");
+    _jspx_th_c_set_0.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${uid}", java.lang.Object.class, (PageContext)_jspx_page_context, null));
+    int _jspx_eval_c_set_0 = _jspx_th_c_set_0.doStartTag();
+    if (_jspx_th_c_set_0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _jspx_tagPool_c_set_var_value_nobody.reuse(_jspx_th_c_set_0);
+      return true;
+    }
+    _jspx_tagPool_c_set_var_value_nobody.reuse(_jspx_th_c_set_0);
+    return false;
+  }
+
+  private boolean _jspx_meth_c_if_0(PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:if
+    org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_0 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
+    _jspx_th_c_if_0.setPageContext(_jspx_page_context);
+    _jspx_th_c_if_0.setParent(null);
+    _jspx_th_c_if_0.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${uid!=null}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
+    int _jspx_eval_c_if_0 = _jspx_th_c_if_0.doStartTag();
+    if (_jspx_eval_c_if_0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
+      do {
+        out.write("\n");
+        out.write("                    ");
+        if (_jspx_meth_c_forEach_0((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_if_0, _jspx_page_context))
+          return true;
+        out.write("\n");
+        out.write("                ");
+        int evalDoAfterBody = _jspx_th_c_if_0.doAfterBody();
+        if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
+          break;
+      } while (true);
+    }
+    if (_jspx_th_c_if_0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_0);
+      return true;
+    }
+    _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_0);
+    return false;
+  }
+
+  private boolean _jspx_meth_c_forEach_0(javax.servlet.jsp.tagext.JspTag _jspx_th_c_if_0, PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:forEach
+    org.apache.taglibs.standard.tag.rt.core.ForEachTag _jspx_th_c_forEach_0 = (org.apache.taglibs.standard.tag.rt.core.ForEachTag) _jspx_tagPool_c_forEach_var_items.get(org.apache.taglibs.standard.tag.rt.core.ForEachTag.class);
+    _jspx_th_c_forEach_0.setPageContext(_jspx_page_context);
+    _jspx_th_c_forEach_0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_if_0);
+    _jspx_th_c_forEach_0.setVar("ele");
+    _jspx_th_c_forEach_0.setItems((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${api.getChatText(uid)}", java.lang.Object.class, (PageContext)_jspx_page_context, null));
+    int[] _jspx_push_body_count_c_forEach_0 = new int[] { 0 };
+    try {
+      int _jspx_eval_c_forEach_0 = _jspx_th_c_forEach_0.doStartTag();
+      if (_jspx_eval_c_forEach_0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
+        do {
+          out.write("\n");
+          out.write("                        <div>\n");
+          out.write("                            <div class=\"message user-message\">\n");
+          out.write("                                <img src=\"icons/user.png\" alt=\"user icon\">\n");
+          out.write("                                <span>");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${ele.getUser()}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("</span>\n");
+          out.write("                            </div>\n");
+          out.write("                            <div class=\"message bot-message\">\n");
+          out.write("                                <img src=\"icons/chatbot.png\" alt=\"bot icon\">\n");
+          out.write("                                <span>");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${ele.getChat()}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("</span>\n");
+          out.write("                            </div>\n");
+          out.write("                        </div>\n");
+          out.write("                    ");
+          int evalDoAfterBody = _jspx_th_c_forEach_0.doAfterBody();
+          if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
+            break;
+        } while (true);
+      }
+      if (_jspx_th_c_forEach_0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+        return true;
+      }
+    } catch (Throwable _jspx_exception) {
+      while (_jspx_push_body_count_c_forEach_0[0]-- > 0)
+        out = _jspx_page_context.popBody();
+      _jspx_th_c_forEach_0.doCatch(_jspx_exception);
+    } finally {
+      _jspx_th_c_forEach_0.doFinally();
+      _jspx_tagPool_c_forEach_var_items.reuse(_jspx_th_c_forEach_0);
+    }
+    return false;
   }
 }

@@ -37,7 +37,13 @@ public class Query {
             + "else insert into dbo.userBoxchat\n"
             + "values\n"
             + "(   @user_id   -- user_id - varchar(11)\n"
-            + "  , @text-- chat_text - varbinary(max)\n"
+            + "  , @chat_text-- chat_text - varbinary(max)\n"
             + "  , 0 -- status - bit\n"
             + "    )";
+    public String getChatTextAccUID = "select *\n"
+            + "from userBoxchat\n"
+            + "where user_id= ?;";
+    public String clearChatText = "update dbo.userBoxchat\n"
+            + "SET  chat_text= ''\n"
+            + "where user_id=?;";
 }

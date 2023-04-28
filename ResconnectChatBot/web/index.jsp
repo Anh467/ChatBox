@@ -43,6 +43,7 @@
                 color: black;
             }
         </style>
+        
     </head>
     <body>
         <%@include file="block/header.jsp" %>

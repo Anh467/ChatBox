@@ -8,6 +8,10 @@
         <servlet-name>Save</servlet-name>
         <servlet-class>action.Save</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Clear</servlet-name>
+        <servlet-class>action.Clear</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CheckLogin</servlet-name>
         <url-pattern>/CheckLogin</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>Save</servlet-name>
         <url-pattern>/Save</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Clear</servlet-name>
+        <url-pattern>/Clear</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

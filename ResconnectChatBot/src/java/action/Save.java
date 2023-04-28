@@ -4,6 +4,8 @@
  */
 package action;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -31,16 +33,14 @@ public class Save extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Save</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Save at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            HttpSession session = request.getSession();
+            String id = (String) session.getAttribute("id");
+            if (id == null || id.equals("")) {
+                return;
+            }
+            String user = request.getParameter("user");
+            String chat = request.getParameter("chat");
+            new model.API().updateChattext(id, user, chat);
         }
     }
 
@@ -56,17 +56,17 @@ public class Save extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session= request.getSession();
-        String id=(String) session.getAttribute("id");
-        if(id==null||id.equals("")){
-            response.sendRedirect("chat/ircnv.jsp");
-            return;
-        }
-            
-        String user= request.getParameter("user");
-        String chat= request.getParameter("chat");
-        new model.API().updateChattext(id, user, chat);
-        response.sendRedirect("chat/ircnv.jsp");
+        processRequest(request, response);
+//        HttpSession session = request.getSession();
+//        String id = (String) session.getAttribute("id");
+//        if (id == null || id.equals("")) {
+//            return;
+//        }
+//        JsonObject data = new Gson().fromJson(request.getReader(), JsonObject.class);
+//        String uid = data.get("uid").getAsString();
+//        String user = data.get("user").getAsString();
+//        String chat = data.get("chat").getAsString();
+//        new model.API().updateChattext(uid, user, chat);
     }
 
     /**
