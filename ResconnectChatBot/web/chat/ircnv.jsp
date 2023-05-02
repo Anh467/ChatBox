@@ -339,8 +339,8 @@
                     </li>
                 </ul>
                 <div class="buttons" style="display: ${notlogin}">
-                    <a href="login.jsp" class="login"><span>Log in</span></a>
-                    <a href="#" class="btn">Register</a>
+                    <a href="../login.jsp" class="login"><span>Log in</span></a>
+                    <a href="../signup.jsp" class="btn">Register</a>
                 </div>
                 <div class="buttons" style="display: ${login}">
                     <i class="fa-solid fa-user fa-3x"></i>
