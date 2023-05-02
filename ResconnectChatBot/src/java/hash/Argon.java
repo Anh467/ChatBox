@@ -17,7 +17,7 @@ public class Argon {
              hash1= argon2.hash(28, 65536, 1, password);
         } catch (Exception e) {
         }
-        return hash1;
+        return hash1.trim();
     }
     public boolean checkArgon2(String hash, String password){
         if(argon2.verify(hash, password))

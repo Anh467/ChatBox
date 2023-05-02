@@ -1,4 +1,4 @@
-﻿--CREATE DATABASE chat12346;
+﻿--CREATE DATABASE chat12346789;
 --done
 --drop database chat
 CREATE TABLE users (
@@ -8,25 +8,14 @@ ID INT IDENTITY(1,1) NOT NULL,
   user_mail VARCHAR(255),
   avatar_url VARCHAR(1027),
   introduce VARCHAR(255),
+  user_account VARCHAR(127) unique,
+  user_password char(97),
+  created_at datetime,
+   user_dob DATE,
   follower int default 0
 );
 
-CREATE TABLE userInfor (
-  user_id varchar(11) primary key not null,
-  user_dob DATE,
-  study_at VARCHAR(127),
-  work_at VARCHAR(127),
-  favorites VARCHAR(255),
-  created_at datetime
-  constraint fk_user_id_userInfor foreign key (user_id) references dbo.users(user_id),
-);
 
-CREATE TABLE userAccount (
-  user_id varchar(11) primary key not null,
-  user_account VARCHAR(127) unique,
-  user_password char(97)
-  constraint fk_user_id_userAccount foreign key (user_id) references dbo.users(user_id),
-);
 
 --0 user_id1 ->  user_id2
 --1 user_id1 <-  user_id2
@@ -53,7 +42,7 @@ CREATE TABLE userBoxchat (
 
 CREATE TABLE post (
 	user_id varchar(11),
-	ID_POST INT IDENTITY(1,1) NOT NULL,
+		ID_POST INT IDENTITY(1,1) NOT null,
 	post_id AS 'POS' + RIGHT('00000000' + CAST(ID_POST AS VARCHAR(8)), 8) persisted PRIMARY KEY,
 	post_content VARCHAR(max),
 	post_status INT DEFAULT 1,

@@ -12,6 +12,14 @@
         <servlet-name>Clear</servlet-name>
         <servlet-class>action.Clear</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Share</servlet-name>
+        <servlet-class>action.Share</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SignUp</servlet-name>
+        <servlet-class>action.SignUp</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CheckLogin</servlet-name>
         <url-pattern>/CheckLogin</url-pattern>
@@ -23,6 +31,14 @@
     <servlet-mapping>
         <servlet-name>Clear</servlet-name>
         <url-pattern>/Clear</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Share</servlet-name>
+        <url-pattern>/Share</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SignUp</servlet-name>
+        <url-pattern>/SignUp</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

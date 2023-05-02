@@ -10,9 +10,7 @@ form.addEventListener("submit", async (e) => {
     const message = input.value;
     input.value = "";
 
-    messages.innerHTML += `<div class="message user-message">
-  <img src="./icons/user.png" alt="user icon"> <span>${message}</span>
-  </div>`;
+    messages.innerHTML += ``;
 
     // Use axios library to make a POST request to the OpenAI API
     const response = await axios.post(
@@ -34,9 +32,17 @@ form.addEventListener("submit", async (e) => {
             }
     );
     const chatbotResponse = response.data.choices[0].text;
-    messages.innerHTML += `<div class="message bot-message">
-  <img src="./icons/chatbot.png" alt="bot icon"> <span>${chatbotResponse}</span>
-  </div>`;
+    messages.innerHTML += ` <div>
+                                <form>
+                                    <div class="message user-message">
+                                        <img src="./icons/user.png" alt="user icon"> <span>${message}</span>
+                                    </div>
+                                    <div class="message bot-message">
+                                        <img src="./icons/chatbot.png" alt="bot icon"> <span>${chatbotResponse}</span>
+                                    </div>
+                                    
+                                </form>
+                            </div>`;
 //    submitform.innerHTML = `<input type="text" value="${message}" name="user">
 //                <input type="text" value="${chatbotResponse}" name="chat">
 //                <input type="submit" value="enter">`;
@@ -44,7 +50,7 @@ form.addEventListener("submit", async (e) => {
         url: '/ResconnectChatBot/Save',
         type: 'get',
         data: {user: message,
-               chat: chatbotResponse
+            chat: chatbotResponse
         },
         success: function (result) {
         },

@@ -4,8 +4,7 @@
  */
 package action;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;

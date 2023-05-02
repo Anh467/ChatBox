@@ -369,7 +369,10 @@
                             <div class="message bot-message">
                                 <img src="icons/chatbot.png" alt="bot icon">
                                 <span>${ele.getChat()}</span>
-                            </div>
+                            </div>   
+                            <button style="background: none; border: none" onclick="openNewWindow('../block/share.jsp', '?user=${ele.getUser()}&chat=${ele.getChat()}')">
+                                <i class="fa-solid fa-share fa-3x"></i>
+                            </button>
                         </div>
                     </c:forEach>
                 </c:if>
@@ -389,6 +392,7 @@
 
         </div>
         <script>
+            
             const clearboxchat = document.getElementById("clear");
             const message = document.getElementById("chat-messages");
             clearboxchat.addEventListener("click", function () {
@@ -398,13 +402,18 @@
                     data: {id: '${uid}'
                     },
                     success: function (result) {
-                        message.innerHTML= "";
+                        message.innerHTML = "";
                     },
                     error: function (xhr) {
                         alert("st wrong");
                     }
                 });
             });
+            function openNewWindow(st, para)
+            {
+                //   window.open("https://www.w3schools.com");
+                window.open(st + para, "", "width=600px; height=400;");
+            }
         </script>
 
 
@@ -415,7 +424,7 @@
                 <div class="top">
                     <div class="logo-details">
                         <i class="fab fa-slack"></i>
-                        <span class="logo_name" style="color=white;">IRCN V</span>
+                        <span class="logo_name" style="color:white;">IRCN V</span>
                     </div>
                     <div class="media-icons">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>

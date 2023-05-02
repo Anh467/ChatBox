@@ -37,7 +37,7 @@
                                     
                                 </form>
                                 <div>
-                                    <p class="mb-0  text-center">Don't have an account? <a href="Signup.jsp" class="text-primary fw-bold">Sign Up</a></p>
+                                    <p class="mb-0  text-center">Don't have an account? <a href="signup.jsp" class="text-primary fw-bold">Sign Up</a></p>
                                 </div>
                                 <div>
                                     <p style="color: ${color}">${status}</p>

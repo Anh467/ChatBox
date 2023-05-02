@@ -22,7 +22,7 @@ public class BoxChatInfor {
 
 
     public String getUser() {
-        return user;
+        return user.trim();
     }
 
     public void setUser(String user) {
@@ -30,7 +30,7 @@ public class BoxChatInfor {
     }
 
     public String getChat() {
-        return chat;
+        return chat.trim();
     }
 
     public void setChat(String chat) {

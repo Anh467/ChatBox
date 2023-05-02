@@ -245,7 +245,7 @@
         <div class="top">
           <div class="logo-details">
             <i class="fab fa-slack"></i>
-            <span class="logo_name" style="color=white;">IRCN V</span>
+            <span class="logo_name" style="color:white;">IRCN V</span>
           </div>
           <div class="media-icons">
             <a href="#"><i class="fab fa-facebook-f"></i></a>
