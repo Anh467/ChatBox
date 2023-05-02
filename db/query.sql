@@ -29,7 +29,7 @@ DECLARE @user_id varchar(11);
 SET @user_id = 'UID00000002';
 DECLARE @chat_text nvarchar(max);
 DECLARE @text nvarchar(max);
-set @chat_text= 'I love you too!';
+set @chat_text= 'anh yêu behe';
 set @text= (
 	select chat_text
 from dbo.userBoxchat
@@ -43,38 +43,7 @@ set @text= @text +@chat_text
 else insert into dbo.userBoxchat
 values
 (   @user_id   -- user_id - varchar(11)
-  , @chat_text-- chat_text - varbinary(max)
+  , @text-- chat_text - varbinary(max)
   , 0 -- status - bit
     )
---get chattext
 
-select *
-from userBoxchat
-where user_id= 'UID00000002';
-
-
---clearchat text
-update dbo.userBoxchat
-SET  chat_text= ''
-where user_id= 'UID00000002';
-
---create post
-insert into dbo.userInfor
-(
-    user_id
-  , user_dob
-  , study_at
-  , work_at
-  , favorites
-  , created_at
-)
-values
-(   'UID00000002'        -- user_id - varchar(11)
-  , '2002-07-08' -- user_dob - date
-  , 'fpt'        -- study_at - varchar(127)
-  , 'fpt'        -- work_at - varchar(127)
-  , 'badminton'        -- favorites - varchar(255)
-  , getdate() -- created_at - datetime
-    )
-	select *
-	from dbo.userInfor
