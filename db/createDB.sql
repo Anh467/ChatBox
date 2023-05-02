@@ -53,7 +53,7 @@ CREATE TABLE userBoxchat (
 
 CREATE TABLE post (
 	user_id varchar(11),
-	ID_POST INT IDENTITY(1,1) NOT NULL,
+		ID_POST INT IDENTITY(1,1) NOT null,
 	post_id AS 'POS' + RIGHT('00000000' + CAST(ID_POST AS VARCHAR(8)), 8) persisted PRIMARY KEY,
 	post_content VARCHAR(max),
 	post_status INT DEFAULT 1,

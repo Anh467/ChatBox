@@ -57,3 +57,24 @@ where user_id= 'UID00000002';
 update dbo.userBoxchat
 SET  chat_text= ''
 where user_id= 'UID00000002';
+
+--create post
+insert into dbo.userInfor
+(
+    user_id
+  , user_dob
+  , study_at
+  , work_at
+  , favorites
+  , created_at
+)
+values
+(   'UID00000002'        -- user_id - varchar(11)
+  , '2002-07-08' -- user_dob - date
+  , 'fpt'        -- study_at - varchar(127)
+  , 'fpt'        -- work_at - varchar(127)
+  , 'badminton'        -- favorites - varchar(255)
+  , getdate() -- created_at - datetime
+    )
+	select *
+	from dbo.userInfor
