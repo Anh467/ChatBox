@@ -13,7 +13,7 @@ public class Connect {
 
     String databaseName = new model.Query().DataBaseName;
     String user = "sa";
-    String password = "nguyenanhviet";
+    String password = "lioooo0000";
 
     public void setDatabaseName(String databaseName) {
         this.databaseName = databaseName;
@@ -22,7 +22,7 @@ public class Connect {
     public Connection getConnection() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String connectionUrl = "jdbc:sqlserver://MSI\\SQLEXPRESS:1433;databaseName=" + databaseName + "; Encrypt=false;";
+            String connectionUrl = "jdbc:sqlserver://DESKTOP-ULQ9JUL\\TCNJK:1433;databaseName=" + databaseName + "; Encrypt=false;";
             Connection con = DriverManager.getConnection(connectionUrl, user, password);
             System.out.println("True at connection/ connect2");
             return con;

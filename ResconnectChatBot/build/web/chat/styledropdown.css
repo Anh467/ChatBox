@@ -1,0 +1,54 @@
+.iconPost:after {
+    content: '\2807';
+    font-size: 20px;
+    
+}
+
+.iconPost {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: #eceaff;
+    color: #525252;
+    right: 30px;
+    top: 50px;
+    border-radius: 50%;
+}
+
+
+.sub-menu-wrap{
+    position: absolute;
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.5s;
+    right: 30px;
+}
+.sub-menu-wrap.open-menu{
+    max-height: 400px;
+}
+.sub-menu{
+    background: #f7f6f6;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10%;
+}
+.sub-menu-link{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #525252;
+    margin: 0px;
+}
+
+.sub-menu-link p{
+    width: 100%;
+    margin: 0px;
+}
+
+.sub-menu-link:hover p{
+    font-weight: 600;
+}
+

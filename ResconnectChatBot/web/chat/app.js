@@ -3,7 +3,7 @@ const submitform = document.getElementById("cal");
 const input = document.getElementById("chat-input");
 const messages = document.getElementById("chat-messages");
 const uid = document.getElementById("uid");
-const apiKey = "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";
+const apiKey = "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";
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -33,19 +33,26 @@ form.addEventListener("submit", async (e) => {
     );
     const chatbotResponse = response.data.choices[0].text;
     messages.innerHTML += ` <div>
-                                <form>
                                     <div class="message user-message">
                                         <img src="./icons/user.png" alt="user icon"> <span>${message}</span>
                                     </div>
-                                    <div class="message bot-message">
+                                    <div class="message bot-message" style="position: relative;">
                                         <img src="./icons/chatbot.png" alt="bot icon"> <span>${chatbotResponse}</span>
+                                        <div class="iconPost" onclick="toggleMenu(this)">
+                                            <div class="sub-menu-wrap">
+                                                <div class="sub-menu">
+                                                    <button class="sub-menu-link" style="background: none; border: none" onclick="openNewWindow('../block/share.jsp', '?user=${message}&chat=${chatbotResponse.replace(/[\r\n]+/g, '')}')">
+                                                        <p>POST</p>
+                                                    </button>
+                                                </div>
+                                            </div>  
+                                        </div>
                                     </div>
-                                    
-                                </form>
-                            </div>`;
+                            </div>`;    
 //    submitform.innerHTML = `<input type="text" value="${message}" name="user">
 //                <input type="text" value="${chatbotResponse}" name="chat">
 //                <input type="submit" value="enter">`;
+    
     $.ajax({
         url: '/ResconnectChatBot/Save',
         type: 'get',
@@ -58,4 +65,8 @@ form.addEventListener("submit", async (e) => {
             alert("st wrong");
         }
     });
+    
+    const win = document.getElementById("chat-messages");
+    win.scrollTo(0,document.body.scrollHeight);
+    //$('#chat-messages').scrollTop($('#chat-messages')[0].scrollHeight);
 });

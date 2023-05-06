@@ -352,7 +352,8 @@
 
         </div>
 
-
+        <script src="scriptdropdown.js"></script>
+        <link rel="stylesheet" href="styledropdown.css"/>
         <c:set var="id_user" value="${uid}"></c:set>            
         <jsp:useBean id="api" class="model.API"></jsp:useBean>
             <div id="chat-window">
@@ -366,13 +367,25 @@
                                 <img src="icons/user.png" alt="user icon">
                                 <span>${ele.getUser()}</span>
                             </div>
-                            <div class="message bot-message">
+                            <div class="message bot-message" style="position: relative;">
                                 <img src="icons/chatbot.png" alt="bot icon">
                                 <span>${ele.getChat()}</span>
+                                <div class="iconPost" onclick="toggleMenu(this)">
+                                    <div class="sub-menu-wrap">
+                                        <div class="sub-menu">
+                                            <form action="../PostTo" method="POST">
+                                                <input type="text" name="userChat" value="${ele.getUser()}" readonly style="display: none;">
+                                                <input type="text" name="botChat" value="${ele.getChat()}" readonly style="display: none;">
+                                                <button class="sub-menu-link" style="background: none; border: none" type="submit">
+                                                    <p>POST</p>
+                                                </button>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>   
-                            <button style="background: none; border: none" onclick="openNewWindow('../block/share.jsp', '?user=${ele.getUser()}&chat=${ele.getChat()}')">
-                                <i class="fa-solid fa-share fa-3x"></i>
-                            </button>
+
                         </div>
                     </c:forEach>
                 </c:if>
@@ -392,7 +405,7 @@
 
         </div>
         <script>
-            
+
             const clearboxchat = document.getElementById("clear");
             const message = document.getElementById("chat-messages");
             clearboxchat.addEventListener("click", function () {

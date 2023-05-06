@@ -54,7 +54,7 @@
             </div>
             <div class="link">
                 <a href="chat/ircnv.jsp" class="hire">Chat Bot AI</a>
-                <a href="#" class="hire">Community</a>
+                <a href="communication/community.jsp" class="hire">Community</a>
             </div>
         </div>
         <%@include file="block/footer.jsp" %>

@@ -1,4 +1,4 @@
-﻿--CREATE DATABASE chat12346789;
+﻿CREATE DATABASE chat;
 --done
 --drop database chat
 CREATE TABLE users (
@@ -70,8 +70,17 @@ CREATE TABLE vote (
   constraint fk_vote_vote_id foreign key (comment_id) references dbo.comment(comment_id),
 );
 
-
-
+INSERT INTO dbo.post
+(
+    user_id,
+    post_content,
+    post_status
+)
+VALUES
+(   'UID00000001',       -- user_id - varchar(11)
+    'badkjbas',       -- post_content - varchar(max)
+    0			      -- post_status - int
+    )
 ----------------------------------------TRIGGER---------------------------------------
 -- TRIGGER INSERT AFTER dbo.post: khi thuộc tính date của post hết hạn 3 ngày thì sẽ update thuộc tính status của dbo.post thành 0
 -- TRIGGER INSERT/ UPDATE: nếu insert dbo.vote vào db thì sẽ +/- thuộc tính vote_count của table dbo.comment dựa theo status là gì
